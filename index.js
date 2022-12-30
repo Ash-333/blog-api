@@ -16,7 +16,12 @@ app.use(express.json())
 app.use("/images",express.static(path.join(__dirname,"/images")))
 
 mongoose.set("strictQuery", false)
-mongoose.connect(process.env.MONGO_URL).then(console.log("connceted to mongodb"))
+mongoose.connect(process.env.MONGO_URL,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify:true
+}).then(console.log("connceted to mongodb"))
 .catch((err)=>console.log(err))
 
 const storage=multer.diskStorage({
